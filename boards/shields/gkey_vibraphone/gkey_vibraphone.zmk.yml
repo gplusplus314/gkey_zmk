@@ -1,0 +1,11 @@
+file_format: "1"
+id: gkey_vibraphone
+name: Gkey Vibraphone
+type: shield
+url: https://github.com/gplusplus314/gkey_zmk/
+requires: [nice_nano_v2]
+features:
+  - keys
+siblings:
+  - gkey_vibraphone_left
+  - gkey_vibraphone_right
