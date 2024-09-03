@@ -67,20 +67,23 @@
 #define G_F3    &lhrm RALT         F3
 //#define G_F10   &lsft RSHFT        F10
 #define G_F10   F10
+#define G_N0    &rsft RSHFT        N0
 //}}}
 
 // Left thumb {{{
 //#define G_SPC  &glt   L_NAVSYM    SPC
-#define G_SPC  &kp   SPC
+//#define G_SPC  &kp   SPC
+#define G_SPC  &tmb   LSHFT  SPC
 //#define G_ESC  &tm    LSHFT       ESC
-#define G_ESC  &glt    L_NUM       ESC
+//#define G_ESC  &glt    L_NUM       ESC
+#define G_ESC  &glt    L_NAVSYM       ESC
 //}}}
 
 // Right thumb {{{
-//#define G_RET   &tm  LSHFT    RET
-#define G_RET   &glt  L_NAVSYM RET
-//#define G_BSPC  &glt L_NAVSYM BSPC
-#define G_BSPC  &tm LSHFT BSPC
+#define G_RET   &tm  LSHFT    RET
+//#define G_RET   &glt  L_NAVSYM  RET
+#define G_BSPC  &glt L_NAVSYM BSPC
+//#define G_BSPC  &tm LSHFT BSPC
 //}}}
 
 // Dual thumb combo layer
@@ -143,12 +146,10 @@
       //COMBO(minus_r, AS(MINUS), 7  8,  25, RIGHT_HAND_LAYERS)
 
       // Shortcut to brackets:
-      //COMBO(lprn, G_LPRN, 12 23, 25, TYPING_LAYERS)
-      //COMBO(rprn, G_RPRN, 17 26, 25, RIGHT_HAND_LAYERS)
-      //COMBO(lbkt, G_LBKT, 22 23, 25, TYPING_LAYERS)
-      //COMBO(rbkt, G_RBKT, 26 27, 25, RIGHT_HAND_LAYERS)
-      //COMBO(lbkt2, G_LBKT, 3 13, 25, L_BASE)
-      //COMBO(rbkt2, G_RBKT, 6 16, 25, L_BASE)
+      COMBO(lbkt, &kp LBKT   , 2 12, 25, RIGHT_HAND_LAYERS)
+      COMBO(lprn, &gst LS(N9), 3 13, 25, RIGHT_HAND_LAYERS)
+      COMBO(rprn, &gst LS(N0), 6 16, 25, TYPING_LAYERS)
+      COMBO(rbkt, &kp RBKT   , 7 17, 25, TYPING_LAYERS)
 
       // Forward delete on easy-ish combo:
       //COMBO(del, &kp DEL, 21 22, 25, RIGHT_HAND_LAYERS)
@@ -191,6 +192,15 @@
         bindings = <&kp>, <&kp>;
         //hold-trigger-key-positions = <KEYS_LFINGERS KEYS_LTHUMBS>;
         //hold-trigger-on-release; // delay positional check until key-release
+      };
+
+      tmb: thumb_mod_balanced {
+        compatible = "zmk,behavior-hold-tap";
+        #binding-cells = <2>;
+        flavor = "balanced";
+        tapping-term-ms = <135>;
+        quick-tap-ms = <150>;
+        bindings = <&kp>, <&kp>;
       };
 
       lsft: left_home_shift {
@@ -259,9 +269,9 @@
 
 		num_layer {
 			bindings = <
-        &kp DEL      &trans        &trans        &trans          &trans              /*& &*/     &trans              &trans           &trans             &trans        &trans       
-        &kp N1        &kp N2         &kp N3         &kp N4           &kp N5               /*& &*/     &kp N6               &kp N7            &kp N8              &kp N9         &kp N0        
-        &trans       &trans        &trans        &trans          &trans              /*& &*/     &trans              &trans           &trans             &trans        &trans       
+        &gst LS(N1)   &gst LS(N2)   &gst LS(N3)   &gst LS(N4)    &gst LS(N5)         /*& &*/     &gst LS(N6)          &gst LS(N7)       &gst LS(N8)         &gst LS(N9)    &gst LS(N0)   
+        &kp N1        &kp N2        &kp N3        &kp N4         &kp N5              /*& &*/     &kp N6               &kp N7            &kp N8              &kp N9         &kp N0        
+        &kp DEL       &trans        &trans        &trans         &trans              /*& &*/     &trans              &trans           &trans             &trans        &trans       
                                        &trans        &trans          &trans          /*& &*/ &trans            &trans           &trans                                             
 			>;
 		};
@@ -286,10 +296,10 @@
 
 		navsym_layer {
 			bindings = <
-        &kb GRAVE    &kp HOME      &kp UP       &kp END          &kp PG_UP           /*& &*/       &trans              &trans           &trans         &gst LS(EQUAL) &trans  
-        &gst LS(N1)  &kp LEFT      &kp DOWN     &kp RIGHT        &kp PG_DN           /*& &*/       &gst LS(GRAVE)      &gst LS(N9)      &gst LS(N0)    &gst EQUAL     &kp MINUS
-        &trans       &gst LS(LBKT) &kp LBKT     &kp RBKT         &gst LS(RBKT)       /*& &*/       &trans              &gst LS(BSLH)    &trans         &trans         &kp BSLH
-                                       &trans        &trans          &trans          /*& &*/ &trans                  &trans            &trans
+        &kp N8       &kp HOME      &kp UP       &kp END          &kp PG_UP           /*& &*/      &trans              &kp N4           &kp N5         &kp N6        &kp N7 
+        &kp N9       &kp LEFT      &kp DOWN     &kp RIGHT        &kp PG_DN           /*& &*/      &kp GRAVE           &kp N1           &kp N2         &kp N3        &kp N0
+        &kp DEL      &trans        &kp LBKT     &kp RBKT         &trans              /*& &*/      &trans              &kp BSLH         &trans         &trans        &trans 
+                                       &trans        &trans          &glt L_DUAL ESC /*& &*/ &glt L_DUAL RET   &trans            &trans
 			>;
 		};
 
@@ -304,9 +314,9 @@
 
 		dualthumb_layer {
 			bindings = <
-			  &kp CAPS     &trans        &trans        &trans           &trans       /*& &*/    &kp K_PP           &kp K_PREV        &kp K_NEXT        &trans        &trans       
-        &kp F1       &kp F2        &kp F3        &kp F4           &kp F5       /*& &*/    &kp F6             &kp F7            &kp F8            &kp F9        &kp F10      
-        &trans       &trans        &kp K_VOL_DN  &kp K_VOL_UP     &kp K_PP     /*& &*/    &trans             &kp C_BRI_DN      &kp C_BRI_UP      &kp F11       &kp F12      
+			  &kp F8       &trans        &kp C_BRI_DN  &kp C_BRI_UP     &kp K_PP     /*& &*/    &trans             &kp F4            &kp F5            &kp F6        &kp F7          
+        &kp F9       &trans        &kp K_VOL_DN  &kp K_VOL_UP     &kp K_MUTE   /*& &*/    &trans             &kp F1            &kp F2            &kp F3        &kp F10      
+        &trans       &trans        &trans        &trans           &trans       /*& &*/    &trans             &kp F11           &kp F12           &trans        &trans            
                                        &trans        &trans          &trans    /*& &*/ &trans         &trans           &trans
 			>;
 		};
