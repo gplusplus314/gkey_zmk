@@ -11,10 +11,6 @@
 #include <dt-bindings/zmk/outputs.h>
 
 // Global Settings {{{
-&caps_word {
-    continue-list = <UNDERSCORE MINUS BSPC>;
-};
-
 &sl {
   release-after-ms = <1000>;
 };
@@ -22,14 +18,12 @@
 
 // Layer Indices {{{
 #define L_BASE    0
-#define L_NUM     1
-#define L_GAME1   2
-#define L_GAME2   3
-#define L_NAVSYM  4
-#define L_FUTIL   5
-#define L_DUAL    6
-#define L_STNGS   7
-#define L_TRANS   8
+#define L_GAME1   1
+#define L_GAME2   2
+#define L_NAVSYM  3
+#define L_DUAL    4
+#define L_STNGS   5
+#define L_TRANS   6
 
 #define ALPHA_LAYERS L_BASE
 #define TYPING_LAYERS ALPHA_LAYERS L_NAVSYM
@@ -39,17 +33,7 @@
 
 // High level key definitions {{{
 
-//#define AS(keycode) &as LS(keycode) keycode     // Standard Autoshift Macro
-//#define AS2(key1, key2) &as key2 key1           // Custom Autoshift Macro
-
-// Autoshifted Brackets
-//#define G_LPRN AS2(LS(N9), LS(COMMA))
-//#define G_RPRN AS2(LS(N0), LS(DOT))
-//#define G_LBKT AS(LBKT)
-//#define G_RBKT AS(RBKT)
-
-// Left home row mods {{{
-//#define G_A     &lsft LSHFT        A
+// Left home row {{{
 #define G_A     &kp A
 #define G_R     &lhrm LALT         R
 #define G_S     &lhrm LGUI         S
@@ -60,34 +44,21 @@
 #define G_N     &rhrm RCTRL        N
 #define G_E     &rhrm RGUI         E
 #define G_I     &rhrm RALT         I
-//#define G_O     &rsft RSHFT        O
 #define G_O     O
-#define G_F1    &lhrm RCTRL        F1
-#define G_F2    &lhrm RGUI         F2
-#define G_F3    &lhrm RALT         F3
-//#define G_F10   &lsft RSHFT        F10
-#define G_F10   F10
-#define G_N0    &rsft RSHFT        N0
 //}}}
 
 // Left thumb {{{
-//#define G_SPC  &glt   L_NAVSYM    SPC
-//#define G_SPC  &kp   SPC
 #define G_SPC  &tmb   LSHFT  SPC
-//#define G_ESC  &tm    LSHFT       ESC
-//#define G_ESC  &glt    L_NUM       ESC
 #define G_ESC  &glt    L_NAVSYM       ESC
 //}}}
 
 // Right thumb {{{
 #define G_RET   &tm  LSHFT    RET
-//#define G_RET   &glt  L_NAVSYM  RET
 #define G_BSPC  &glt L_NAVSYM BSPC
-//#define G_BSPC  &tm LSHFT BSPC
 //}}}
 
-// Dual thumb combo layer
-#define G_DUAL &mo  L_DUAL
+// Dual thumb combo
+#define G_DUAL &mo L_DUAL
 
 //}}}
 
@@ -117,42 +88,27 @@
         key-positions = <KEYPOS>; \
         layers = <LAYERS>; \
       };
-      #define COMBO2(NAME, BINDINGS, KEYPOS, TIMEOUT, LAYERS) \
-      combo_##NAME { \
-        timeout-ms = <TIMEOUT>; \
-        bindings = <BINDINGS>; \
-        key-positions = <KEYPOS>; \
-        layers = <LAYERS>; \
-      };
       //}}}
 
       // Intentionally out-of-the-way settings layer.
       COMBO(settings, &sl L_STNGS, 6 7 8 9, 35, TYPING_LAYERS)
 
-      // Both left thumb buttons
-      //COMBO(dual_l, G_DUAL, 31 32, 35, ALPHA_LAYERS)
+      // Both inner (stretch) thumb buttons
+      COMBO(dual_l, G_DUAL, 32 33, 35, TYPING_LAYERS)
 
       // Use most comfortable combo for most frequent non-alpha chars:
-      //COMBO(tab, AS(TAB), 12 13, 25, TYPING_LAYERS)
       COMBO(tab, &kp TAB, 12 13, 25, TYPING_LAYERS)
-      //COMBO(quote, AS(SQT), 16 17, 25, RIGHT_HAND_LAYERS)
       COMBO(semi, &kp SEMI, 16 17, 25, RIGHT_HAND_LAYERS)
 
       // Put - and = on easy, combos
-      //COMBO(minus_l, AS(MINUS), 11 12, 25, TYPING_LAYERS)
-      //COMBO(equal_r, AS(EQUAL), 17 18, 25, RIGHT_HAND_LAYERS)
       COMBO(minus_l, &kp MINUS, 11 12, 25, TYPING_LAYERS)
       COMBO(equal_r, &kp EQUAL, 17 18, 25, RIGHT_HAND_LAYERS)
-      //COMBO(minus_r, AS(MINUS), 7  8,  25, RIGHT_HAND_LAYERS)
 
       // Shortcut to brackets:
-      COMBO(lbkt, &kp LBKT   , 2 12, 25, RIGHT_HAND_LAYERS)
-      COMBO(lprn, &gst LS(N9), 3 13, 25, RIGHT_HAND_LAYERS)
-      COMBO(rprn, &gst LS(N0), 6 16, 25, TYPING_LAYERS)
-      COMBO(rbkt, &kp RBKT   , 7 17, 25, TYPING_LAYERS)
-
-      // Forward delete on easy-ish combo:
-      //COMBO(del, &kp DEL, 21 22, 25, RIGHT_HAND_LAYERS)
+      COMBO(lbkt, &kp LBKT   , 2 12, 25, TYPING_LAYERS)
+      COMBO(lprn, &gst LS(N9), 3 13, 25, TYPING_LAYERS)
+      COMBO(rprn, &gst LS(N0), 6 16, 25, RIGHT_HAND_LAYERS)
+      COMBO(rbkt, &kp RBKT   , 7 17, 25, RIGHT_HAND_LAYERS)
     };
     //}}}
 
@@ -203,30 +159,6 @@
         bindings = <&kp>, <&kp>;
       };
 
-      lsft: left_home_shift {
-        compatible = "zmk,behavior-hold-tap";
-        #binding-cells = <2>;
-        flavor = "balanced";
-        tapping-term-ms = <135>;
-        quick-tap-ms = <150>;
-        require-prior-idle-ms = <115>;
-        bindings = <&kp>, <&kp>;
-        hold-trigger-key-positions = <KEYS_RFINGERS KEYS_RTHUMBS>;
-        hold-trigger-on-release; // delay positional check until key-release
-      };
-
-      rsft: right_home_shift {
-        compatible = "zmk,behavior-hold-tap";
-        #binding-cells = <2>;
-        flavor = "balanced";
-        tapping-term-ms = <135>;
-        quick-tap-ms = <150>;
-        require-prior-idle-ms = <115>;
-        bindings = <&kp>, <&kp>;
-        hold-trigger-key-positions = <KEYS_LFINGERS KEYS_LTHUMBS>;
-        hold-trigger-on-release; // delay positional check until key-release
-      };
-
       glt: gerrys_layer_tap {
         compatible = "zmk,behavior-hold-tap";
         #binding-cells = <2>;
@@ -236,16 +168,6 @@
         bindings = <&mo>, <&kp>;
       };
 
-      //as: auto_shift {
-      //  compatible = "zmk,behavior-hold-tap";
-      //  label = "AUTO_SHIFT";
-      //  #binding-cells = <2>;
-      //  tapping_term_ms = <150>;
-      //  quick_tap_ms = <150>;
-      //  flavor = "tap-preferred";
-      //  bindings = <&kp>, <&kp>;
-      //};
-      
       gst: gerrys_simple_tap {
         compatible = "zmk,behavior-macro-one-param";
         #binding-cells = <1>;
@@ -262,17 +184,8 @@
 			bindings = <
         &kp Q         &kp W         &kp F         &kp P           &kp B         /*& &*/     &kp J               &kp L            &kp U              &kp Y         &kp SQT 
         &kp A         G_R           G_S           G_T             &kp G         /*& &*/     &kp M               G_N              G_E                G_I           &kp O
-        &lhrm LSHFT Z &kp X         &kp C         &kp D           &kp V         /*& &*/     &kp K               &kp H            &kp COMMA          &kp DOT       &lhrm RSHFT FSLH
+        &kp Z         &kp X         &kp C         &kp D           &kp V         /*& &*/     &kp K               &kp H            &kp COMMA          &kp DOT       &kp FSLH
                                         &tog L_GAME1  G_SPC           G_ESC     /*& &*/ G_RET          G_BSPC           &trans
-			>;
-		};
-
-		num_layer {
-			bindings = <
-        &gst LS(N1)   &gst LS(N2)   &gst LS(N3)   &gst LS(N4)    &gst LS(N5)         /*& &*/     &gst LS(N6)          &gst LS(N7)       &gst LS(N8)         &gst LS(N9)    &gst LS(N0)   
-        &kp N1        &kp N2        &kp N3        &kp N4         &kp N5              /*& &*/     &kp N6               &kp N7            &kp N8              &kp N9         &kp N0        
-        &kp DEL       &trans        &trans        &trans         &trans              /*& &*/     &trans              &trans           &trans             &trans        &trans       
-                                       &trans        &trans          &trans          /*& &*/ &trans            &trans           &trans                                             
 			>;
 		};
 
@@ -296,19 +209,10 @@
 
 		navsym_layer {
 			bindings = <
-        &kp N8       &kp HOME      &kp UP       &kp END          &kp PG_UP           /*& &*/      &trans              &kp N4           &kp N5         &kp N6        &kp N7 
+        &kp DEL      &kp HOME      &kp UP       &kp END          &kp PG_UP           /*& &*/      &trans              &kp N4           &kp N5         &kp N6        &kp SEMI
         &kp N9       &kp LEFT      &kp DOWN     &kp RIGHT        &kp PG_DN           /*& &*/      &kp GRAVE           &kp N1           &kp N2         &kp N3        &kp N0
-        &kp DEL      &trans        &kp LBKT     &kp RBKT         &trans              /*& &*/      &trans              &kp BSLH         &trans         &trans        &trans 
-                                       &trans        &trans          &glt L_DUAL ESC /*& &*/ &glt L_DUAL RET   &trans            &trans
-			>;
-		};
-
-		util_layer {
-			bindings = <
-        &trans       &trans        &trans        &trans          &trans        /*& &*/     &trans              &trans           &trans         &trans        &trans
-        &trans       &trans        &trans        &trans          &trans        /*& &*/     &trans              &trans           &trans         &trans        &trans
-        &trans       &trans        &trans        &trans          &trans        /*& &*/     &trans              &trans           &trans         &trans        &trans
-                                       &trans        &trans          &trans    /*& &*/ &trans         &trans           &trans
+        &trans       &trans        &kp N8       &kp N7           &trans              /*& &*/      &trans              &kp BSLH         &trans         &trans        &trans 
+                                       &trans        &trans          &trans          /*& &*/ &trans            &trans            &trans
 			>;
 		};
 
@@ -330,6 +234,7 @@
 			>;
 		};
 
+    // This effectively acts as a template for new layers, but I leave it as part of the layout to make sure it can always compile.
 		trans_layer {
 			bindings = <
         &trans       &trans        &trans        &trans          &trans        /*& &*/     &trans              &trans           &trans         &trans        &trans
