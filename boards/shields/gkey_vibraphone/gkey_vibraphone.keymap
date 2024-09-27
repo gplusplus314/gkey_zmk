@@ -34,27 +34,33 @@
 // High level key definitions {{{
 
 // Left home row {{{
-#define G_A     &kp A
+// base layer
+#define G_A     &lsft LSHFT        A
 #define G_R     &lhrm LALT         R
 #define G_S     &lhrm LGUI         S
 #define G_T     &lhrm LCTRL        T
+// navsym layer
+#define G_DOT   &lsft LSHFT        DOT
 //}}}
 
 // Right home row mods {{{
+// base layer
 #define G_N     &rhrm RCTRL        N
 #define G_E     &rhrm RGUI         E
 #define G_I     &rhrm RALT         I
-#define G_O     O
+#define G_O     &rsft RSHFT        O
+// navsym layer
+#define G_N0    &rsft RSHFT        N0
 //}}}
 
 // Left thumb {{{
-#define G_SPC  &tmb   LSHFT  SPC
-#define G_ESC  &glt    L_NAVSYM       ESC
+#define G_SPC  &kp     SPC
+#define G_ESC  &tlt    L_NAVSYM       ESC
 //}}}
 
 // Right thumb {{{
 #define G_RET   &tm  LSHFT    RET
-#define G_BSPC  &glt L_NAVSYM BSPC
+#define G_BSPC  &tlt L_NAVSYM BSPC
 //}}}
 
 // Dual thumb combo
@@ -93,8 +99,8 @@
       // Intentionally out-of-the-way settings layer.
       COMBO(settings, &sl L_STNGS, 6 7 8 9, 35, TYPING_LAYERS)
 
-      // Both inner (stretch) thumb buttons
-      COMBO(dual_l, G_DUAL, 32 33, 35, TYPING_LAYERS)
+      // Both left thumb buttons
+      COMBO(dual_l, G_DUAL, 31 32, 35, TYPING_LAYERS)
 
       // Use most comfortable combo for most frequent non-alpha chars:
       COMBO(tab, &kp TAB, 12 13, 25, TYPING_LAYERS)
@@ -106,9 +112,12 @@
 
       // Shortcut to brackets:
       COMBO(lbkt, &kp LBKT   , 2 12, 25, TYPING_LAYERS)
-      COMBO(lprn, &gst LS(N9), 3 13, 25, TYPING_LAYERS)
-      COMBO(rprn, &gst LS(N0), 6 16, 25, RIGHT_HAND_LAYERS)
+      COMBO(lprn, &st LS(N9), 3 13, 25, TYPING_LAYERS)
+      COMBO(rprn, &st LS(N0), 6 16, 25, RIGHT_HAND_LAYERS)
       COMBO(rbkt, &kp RBKT   , 7 17, 25, RIGHT_HAND_LAYERS)
+      
+      // Alternate 'O' for ALL CAPS TYPING USING RIGHT PINKY AS SHIFT
+      COMBO(alt_o, &kp O, 21 22, 25, TYPING_LAYERS)
     };
     //}}}
 
@@ -123,7 +132,8 @@
         require-prior-idle-ms = <175>;
         bindings = <&kp>, <&kp>;
         hold-trigger-key-positions = <KEYS_RFINGERS KEYS_RTHUMBS>;
-        hold-trigger-on-release; // delay positional check until key-release
+        hold-trigger-on-release;
+        idle-trigger-key-codes = < SPACE DOT COMMA BSPC DELETE >;
       };
 
       rhrm: right_home_row_mod {
@@ -135,7 +145,30 @@
         require-prior-idle-ms = <175>;
         bindings = <&kp>, <&kp>;
         hold-trigger-key-positions = <KEYS_LFINGERS KEYS_LTHUMBS>;
-        hold-trigger-on-release; // delay positional check until key-release
+        hold-trigger-on-release;
+        idle-trigger-key-codes = < SPACE DOT COMMA BSPC DELETE >;
+      };
+
+      lsft: left_home_shift {
+        compatible = "zmk,behavior-hold-tap";
+        #binding-cells = <2>;
+        flavor = "balanced";
+        tapping-term-ms = <150>;
+        quick-tap-ms = <150>;
+        bindings = <&kp>, <&kp>;
+        hold-trigger-key-positions = <KEYS_RFINGERS KEYS_RTHUMBS>;
+        hold-trigger-on-release;
+      };
+
+      rsft: right_home_shift {
+        compatible = "zmk,behavior-hold-tap";
+        #binding-cells = <2>;
+        flavor = "balanced";
+        tapping-term-ms = <150>;
+        quick-tap-ms = <150>;
+        bindings = <&kp>, <&kp>;
+        hold-trigger-key-positions = <KEYS_LFINGERS KEYS_LTHUMBS>;
+        hold-trigger-on-release;
       };
 
       tm: thumb_mod {
@@ -144,22 +177,10 @@
         flavor = "hold-preferred";
         tapping-term-ms = <135>;
         quick-tap-ms = <150>;
-        //require-prior-idle-ms = <175>;
-        bindings = <&kp>, <&kp>;
-        //hold-trigger-key-positions = <KEYS_LFINGERS KEYS_LTHUMBS>;
-        //hold-trigger-on-release; // delay positional check until key-release
-      };
-
-      tmb: thumb_mod_balanced {
-        compatible = "zmk,behavior-hold-tap";
-        #binding-cells = <2>;
-        flavor = "balanced";
-        tapping-term-ms = <135>;
-        quick-tap-ms = <150>;
         bindings = <&kp>, <&kp>;
       };
 
-      glt: gerrys_layer_tap {
+      tlt: thumb_layer_tap {
         compatible = "zmk,behavior-hold-tap";
         #binding-cells = <2>;
         flavor = "balanced";
@@ -168,7 +189,7 @@
         bindings = <&mo>, <&kp>;
       };
 
-      gst: gerrys_simple_tap {
+      st: shifted_tap {
         compatible = "zmk,behavior-macro-one-param";
         #binding-cells = <1>;
         bindings = <&macro_param_1to1>, <&macro_tap &kp MACRO_PLACEHOLDER>;
@@ -183,7 +204,7 @@
 		base_layer {
 			bindings = <
         &kp Q         &kp W         &kp F         &kp P           &kp B         /*& &*/     &kp J               &kp L            &kp U              &kp Y         &kp SQT 
-        &kp A         G_R           G_S           G_T             &kp G         /*& &*/     &kp M               G_N              G_E                G_I           &kp O
+        G_A           G_R           G_S           G_T             &kp G         /*& &*/     &kp M               G_N              G_E                G_I           G_O  
         &kp Z         &kp X         &kp C         &kp D           &kp V         /*& &*/     &kp K               &kp H            &kp COMMA          &kp DOT       &kp FSLH
                                         &tog L_GAME1  G_SPC           G_ESC     /*& &*/ G_RET          G_BSPC           &trans
 			>;
@@ -194,7 +215,7 @@
         &kp Q          &kp W         &kp F         &kp P           &kp B         /*& &*/     &trans              &trans           &trans         &trans        &trans 
         &kp A          &kp R         &kp S         &kp T           &kp G         /*& &*/     &trans              &trans           &trans         &trans        &trans 
         &kp Z          &kp X         &kp C         &kp D           &kp V         /*& &*/     &trans              &trans           &trans         &trans        &trans 
-                                &glt L_GAME2 DOT       &kp SPC         &kp LCTRL /*& &*/ &trans         &trans           &tog L_GAME1                                       
+                                &tlt L_GAME2 DOT       &kp SPC         &kp LCTRL /*& &*/ &trans         &trans           &tog L_GAME1                                       
 			>;
 		};
 
@@ -209,18 +230,18 @@
 
 		navsym_layer {
 			bindings = <
-        &kp DEL      &kp HOME      &kp UP       &kp END          &kp PG_UP           /*& &*/      &trans              &kp N4           &kp N5         &kp N6        &kp SEMI
-        &kp N9       &kp LEFT      &kp DOWN     &kp RIGHT        &kp PG_DN           /*& &*/      &kp GRAVE           &kp N1           &kp N2         &kp N3        &kp N0
-        &trans       &trans        &kp N8       &kp N7           &trans              /*& &*/      &trans              &kp BSLH         &trans         &trans        &trans 
+        &kp DEL      &kp HOME      &kp UP       &kp END          &kp PG_UP           /*& &*/      &kp SEMI            &kp N4           &kp N5         &kp N6        &kp BSLH
+        G_DOT        &kp LEFT      &kp DOWN     &kp RIGHT        &kp PG_DN           /*& &*/      &kp GRAVE           &kp N1           &kp N2         &kp N3        G_N0  
+        &kp COMMA    &kp MINUS     &kp LBKT     &kp RBKT         &kp EQUAL           /*& &*/      &kp SQT             &kp N7           &kp N8         &kp N9        &trans  
                                        &trans        &trans          &trans          /*& &*/ &trans            &trans            &trans
 			>;
 		};
 
 		dualthumb_layer {
 			bindings = <
-			  &kp F8       &trans        &kp C_BRI_DN  &kp C_BRI_UP     &kp K_PP     /*& &*/    &trans             &kp F4            &kp F5            &kp F6        &kp F7          
+			  &kp F8       &trans        &kp C_BRI_DN  &kp C_BRI_UP     &kp K_PP     /*& &*/    &trans             &kp F4            &kp F5            &kp F6        &kp F11         
         &kp F9       &trans        &kp K_VOL_DN  &kp K_VOL_UP     &kp K_MUTE   /*& &*/    &trans             &kp F1            &kp F2            &kp F3        &kp F10      
-        &trans       &trans        &trans        &trans           &trans       /*& &*/    &trans             &kp F11           &kp F12           &trans        &trans            
+        &trans       &trans        &trans        &trans           &trans       /*& &*/    &trans             &kp F7            &kp F8            &kp F9        &kp F12           
                                        &trans        &trans          &trans    /*& &*/ &trans         &trans           &trans
 			>;
 		};

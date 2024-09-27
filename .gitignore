@@ -1,3 +1,4 @@
-
 .zmk/
 .venv/
+/build/
+/.vscode/

@@ -12,6 +12,10 @@ case "$1" in
 	both)
 		ZMK_SPLIT_SIDE="both"
 		;;
+	reset)
+		ZMK_SPLIT_SIDE="left"
+		ZMK_RESET="y"
+		;;
 	*)
 		ZMK_SPLIT_SIDE="left"
 		;;
@@ -66,17 +70,24 @@ fi
 
 doBuild() {
 	pushd $ZEPHYR_BASE/../app
+	if [ "$ZMK_RESET" = "y" ]; then
+		DSHIELD="settings_reset"
+	else
+		DSHIELD="${ZMK_SHIELD}_${ZMK_SPLIT_SIDE}"
+	fi
+	# Add this option for USB logging:
+	# -S zmk-usb-logging \
 	west build \
 		-p \
 		-d build/$ZMK_SPLIT_SIDE \
 		-b $ZMK_BOARD -- \
-		-DSHIELD=${ZMK_SHIELD}_$ZMK_SPLIT_SIDE \
+		-DSHIELD=${DSHIELD} \
 		-DZMK_CONFIG=$ZMK_CONFIG
 	popd
 	./bin/flash.sh $ZMK_SHIELD $ZMK_SPLIT_SIDE
 }
 
-if [ "$ZMK_SPLIT" = "y" ]; then
+if [ "$ZMK_SPLIT" = "y" ] || [ "$ZMK_RESET" = "y" ]; then
 	if [[ "$ZMK_SPLIT_SIDE" == "both" ]]; then
 		ZMK_SPLIT_SIDE="right"
 		doBuild
