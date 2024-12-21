@@ -133,7 +133,6 @@
         bindings = <&kp>, <&kp>;
         hold-trigger-key-positions = <KEYS_RFINGERS KEYS_RTHUMBS>;
         hold-trigger-on-release;
-        idle-trigger-key-codes = < SPACE DOT COMMA BSPC DELETE >;
       };
 
       rhrm: right_home_row_mod {
@@ -146,7 +145,6 @@
         bindings = <&kp>, <&kp>;
         hold-trigger-key-positions = <KEYS_LFINGERS KEYS_LTHUMBS>;
         hold-trigger-on-release;
-        idle-trigger-key-codes = < SPACE DOT COMMA BSPC DELETE >;
       };
 
       lsft: left_home_shift {
