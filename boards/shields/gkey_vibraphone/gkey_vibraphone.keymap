@@ -66,6 +66,9 @@
 // Dual thumb combo
 #define G_DUAL &mo L_DUAL
 
+// Hyper without Shift = Duper
+#define K_DUPER LC(LA(LGUI))
+
 //}}}
 
 / {
@@ -112,8 +115,8 @@
 
       // Shortcut to brackets:
       COMBO(lbkt, &kp LBKT   , 2 12, 25, TYPING_LAYERS)
-      COMBO(lprn, &st LS(N9), 3 13, 25, TYPING_LAYERS)
-      COMBO(rprn, &st LS(N0), 6 16, 25, RIGHT_HAND_LAYERS)
+      COMBO(lprn, &tm K_DUPER LS(N9), 3 13, 25, TYPING_LAYERS)
+      COMBO(rprn, &tm K_DUPER LS(N0), 6 16, 25, RIGHT_HAND_LAYERS)
       COMBO(rbkt, &kp RBKT   , 7 17, 25, RIGHT_HAND_LAYERS)
       
       // Alternate 'O' for ALL CAPS TYPING USING RIGHT PINKY AS SHIFT
