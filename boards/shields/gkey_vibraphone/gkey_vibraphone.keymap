@@ -18,12 +18,14 @@
 
 // Layer Indices {{{
 #define L_BASE    0
-#define L_GAME1   1
-#define L_GAME2   2
-#define L_NAVSYM  3
-#define L_DUAL    4
-#define L_STNGS   5
-#define L_TRANS   6
+#define L_NAVSYM  1
+#define L_MACRO   2
+#define L_DUAL    3
+#define L_GAME0   4
+#define L_GAME1   5
+#define L_GAME2   6
+#define L_STNGS   7
+#define L_TRANS   8
 
 #define ALPHA_LAYERS L_BASE
 #define TYPING_LAYERS ALPHA_LAYERS L_NAVSYM
@@ -33,20 +35,32 @@
 
 // High level key definitions {{{
 
+// Hyper without Shift = Duper
+#define K_DUPER RC(RA(RGUI))
+#define DP(KP) RC(RA(RG(KP)))
+
 // Left home row {{{
 // base layer
-#define G_A     &lsft LSHFT        A
-#define G_R     &lhrm LALT         R
-#define G_S     &lhrm LGUI         S
-#define G_T     &lhrm LCTRL        T
+#define G_A     &lsft LSHFT      A
+#define G_R     &lhrm LALT       R
+#define G_S     &lhrm LGUI       S
+#define G_T     &lhrm LCTRL      T
+#define G_D     &lhrm K_DUPER    D
+//#define G_S     &lhrm K_DUPER    S
+//#define G_T     &lhrm LCTRL      T
+//#define G_D     &lhrm LGUI       D
 // navsym layer
 #define G_DOT   &lsft LSHFT        DOT
 //}}}
 
 // Right home row mods {{{
 // base layer
+#define G_H     &rhrm K_DUPER      H
 #define G_N     &rhrm RCTRL        N
 #define G_E     &rhrm RGUI         E
+//#define G_H     &rhrm RGUI         H
+//#define G_N     &rhrm RCTRL        N
+//#define G_E     &rhrm K_DUPER      E
 #define G_I     &rhrm RALT         I
 #define G_O     &rsft RSHFT        O
 // navsym layer
@@ -54,20 +68,19 @@
 //}}}
 
 // Left thumb {{{
-#define G_SPC  &kp     SPC
-#define G_ESC  &tlt    L_NAVSYM       ESC
+#define G_SPC  &sm     K_DUPER       SPC
+#define G_ESC  &tlt    L_NAVSYM      ESC
 //}}}
 
 // Right thumb {{{
 #define G_RET   &tm  LSHFT    RET
 #define G_BSPC  &tlt L_NAVSYM BSPC
+#define G_WM  &tlt L_NAVSYM BSPC
 //}}}
 
 // Dual thumb combo
 #define G_DUAL &mo L_DUAL
 
-// Hyper without Shift = Duper
-#define K_DUPER LC(LA(LGUI))
 
 //}}}
 
@@ -115,12 +128,14 @@
 
       // Shortcut to brackets:
       COMBO(lbkt, &kp LBKT   , 2 12, 25, TYPING_LAYERS)
-      COMBO(lprn, &tm K_DUPER LS(N9), 3 13, 25, TYPING_LAYERS)
-      COMBO(rprn, &tm K_DUPER LS(N0), 6 16, 25, RIGHT_HAND_LAYERS)
+      COMBO(lprn, &st LS(N9), 3 13, 25, TYPING_LAYERS)
+      COMBO(rprn, &st LS(N0), 6 16, 25, RIGHT_HAND_LAYERS)
       COMBO(rbkt, &kp RBKT   , 7 17, 25, RIGHT_HAND_LAYERS)
       
-      // Alternate 'O' for ALL CAPS TYPING USING RIGHT PINKY AS SHIFT
-      COMBO(alt_o, &kp O, 21 22, 25, TYPING_LAYERS)
+      // Alternate 'O' for ALL CAPS TYPING USING PINKY AS SHIFT
+      // (ring and middle finger down 1 position)
+      COMBO(alt_ol, &kp O, 21 22, 25, TYPING_LAYERS)
+      COMBO(alt_or, &kp O, 27 28, 25, TYPING_LAYERS)
     };
     //}}}
 
@@ -181,6 +196,14 @@
         bindings = <&kp>, <&kp>;
       };
 
+      sm: space_mod {
+        compatible = "zmk,behavior-hold-tap";
+        #binding-cells = <2>;
+        flavor = "balanced";
+        tapping-term-ms = <175>;
+        bindings = <&kp>, <&kp>;
+      };
+
       tlt: thumb_layer_tap {
         compatible = "zmk,behavior-hold-tap";
         #binding-cells = <2>;
@@ -195,6 +218,20 @@
         #binding-cells = <1>;
         bindings = <&macro_param_1to1>, <&macro_tap &kp MACRO_PLACEHOLDER>;
       };
+
+      loff: layer_off {
+        compatible = "zmk,behavior-toggle-layer";
+        #binding-cells = <1>;
+        display-name = "Layer On";
+        toggle-mode = "on";
+      };
+
+      lon: layer_on {
+        compatible = "zmk,behavior-toggle-layer";
+        #binding-cells = <1>;
+        display-name = "Layer On";
+        toggle-mode = "on";
+      };
     };
     //}}}
 
@@ -204,10 +241,46 @@
 
 		base_layer {
 			bindings = <
-        &kp Q         &kp W         &kp F         &kp P           &kp B         /*& &*/     &kp J               &kp L            &kp U              &kp Y         &kp SQT 
-        G_A           G_R           G_S           G_T             &kp G         /*& &*/     &kp M               G_N              G_E                G_I           G_O  
-        &kp Z         &kp X         &kp C         &kp D           &kp V         /*& &*/     &kp K               &kp H            &kp COMMA          &kp DOT       &kp FSLH
-                                        &tog L_GAME1  G_SPC           G_ESC     /*& &*/ G_RET          G_BSPC           &trans
+        &kp Q         &kp W         &kp F         &kp P           &kp B        /*& &*/     &kp J               &kp L            &kp U              &kp Y         &kp SQT 
+        G_A           G_R           G_S           G_T             &kp G        /*& &*/     &kp M               G_N              G_E                G_I           G_O  
+        &kp Z         &kp X         &kp C         G_D             &kp V        /*& &*/     &kp K               G_H              &kp COMMA          &kp DOT       &kp FSLH
+                                        &mo L_MACRO   G_SPC           G_ESC    /*& &*/ G_RET          G_BSPC           &mo L_MACRO
+			>;
+		};
+
+		navsym_layer {
+			bindings = <
+        &kp DEL      &kp HOME      &kp UP       &kp END          &kp PG_UP     /*& &*/      &kp SEMI            &kp N4           &kp N5         &kp N6        &kp BSLH
+        G_DOT        &kp LEFT      &kp DOWN     &kp RIGHT        &kp PG_DN     /*& &*/      &kp GRAVE           &kp N1           &kp N2         &kp N3        G_N0  
+        &kp COMMA    &kp MINUS     &kp LBKT     &kp RBKT         &kp EQUAL     /*& &*/      &kp SQT             &kp N7           &kp N8         &kp N9        &trans  
+                                       &trans        &trans          &trans    /*& &*/ &trans            &trans            &trans
+			>;
+		};
+
+		macro_layer {
+			bindings = <
+        &kp F23      &kp F18       &kp F17       &kp F16         &kp KP_PLUS   /*& &*/     &kp KP_MULTIPLY      &kp F4            &kp F5            &kp F6        &kp F11 
+        &kp F22      &kp F15       &kp F14       &kp F13         &kp KP_MINUS  /*& &*/     &kp KP_DIVIDE        &kp F1            &kp F2            &kp F3        &kp F10 
+        &kp F24      &kp F21       &kp F20       &kp F19         &kp KP_EQUAL  /*& &*/     &kp KP_DOT           &kp F7            &kp F8            &kp F9        &kp F12 
+                                       &mo L_STNGS   &trans          &trans    /*& &*/ &trans         &trans           &mo L_STNGS
+			>;
+		};
+
+		dualthumb_layer {
+			bindings = <
+			  &trans       &trans        &kp C_BRI_DN  &kp C_BRI_UP     &kp K_PP     /*& &*/    &trans             &kp F4            &kp F5            &kp F6        &kp F11
+        &trans       &trans        &kp K_VOL_DN  &kp K_VOL_UP     &kp K_MUTE   /*& &*/    &trans             &kp F1            &kp F2            &kp F3        &kp F10
+        &trans       &trans        &trans        &trans           &trans       /*& &*/    &trans             &kp F7            &kp F8            &kp F9        &kp F12
+                                       &trans        &trans          &trans    /*& &*/ &trans         &trans           &trans
+			>;
+		};
+
+		game0_layer {
+			bindings = <
+        &trans       &trans        &trans        &trans          &trans        /*& &*/     &trans              &trans           &trans         &trans        &trans
+        &trans       &trans        &trans        &trans          &trans        /*& &*/     &trans              &trans           &trans         &trans        &trans
+        &trans       &trans        &trans        &trans          &trans        /*& &*/     &trans              &trans           &trans         &trans        &trans
+                                       &lon L_GAME1  &trans          &trans    /*& &*/ &trans         &trans           &trans
 			>;
 		};
 
@@ -216,7 +289,7 @@
         &kp Q          &kp W         &kp F         &kp P           &kp B         /*& &*/     &trans              &trans           &trans         &trans        &trans 
         &kp A          &kp R         &kp S         &kp T           &kp G         /*& &*/     &trans              &trans           &trans         &trans        &trans 
         &kp Z          &kp X         &kp C         &kp D           &kp V         /*& &*/     &trans              &trans           &trans         &trans        &trans 
-                                &tlt L_GAME2 DOT       &kp SPC         &kp LCTRL /*& &*/ &trans         &trans           &tog L_GAME1                                       
+                                &tlt L_GAME2 DOT       &kp SPC         &kp LCTRL /*& &*/ &trans         &trans           &loff L_GAME1                                       
 			>;
 		};
 
@@ -229,29 +302,11 @@
 			>;
 		};
 
-		navsym_layer {
-			bindings = <
-        &kp DEL      &kp HOME      &kp UP       &kp END          &kp PG_UP           /*& &*/      &kp SEMI            &kp N4           &kp N5         &kp N6        &kp BSLH
-        G_DOT        &kp LEFT      &kp DOWN     &kp RIGHT        &kp PG_DN           /*& &*/      &kp GRAVE           &kp N1           &kp N2         &kp N3        G_N0  
-        &kp COMMA    &kp MINUS     &kp LBKT     &kp RBKT         &kp EQUAL           /*& &*/      &kp SQT             &kp N7           &kp N8         &kp N9        &trans  
-                                       &trans        &trans          &trans          /*& &*/ &trans            &trans            &trans
-			>;
-		};
-
-		dualthumb_layer {
-			bindings = <
-			  &kp F8       &trans        &kp C_BRI_DN  &kp C_BRI_UP     &kp K_PP     /*& &*/    &trans             &kp F4            &kp F5            &kp F6        &kp F11         
-        &kp F9       &trans        &kp K_VOL_DN  &kp K_VOL_UP     &kp K_MUTE   /*& &*/    &trans             &kp F1            &kp F2            &kp F3        &kp F10      
-        &trans       &trans        &trans        &trans           &trans       /*& &*/    &trans             &kp F7            &kp F8            &kp F9        &kp F12           
-                                       &trans        &trans          &trans    /*& &*/ &trans         &trans           &trans
-			>;
-		};
-
 		settings_layer {
 			bindings = <
-        &trans       &trans        &trans        &trans             &bt BT_CLR    /*& &*/     &trans              &trans           &trans         &trans        &trans
-        &out OUT_USB &bt BT_SEL 2  &bt BT_SEL 1  &bt BT_SEL 0       &out OUT_BLE  /*& &*/     &trans              &trans           &trans         &trans        &trans
-        &trans       &trans        &bt BT_SEL 4  &bt BT_SEL 3       &trans        /*& &*/     &trans              &trans           &trans         &trans        &trans
+        &trans       &trans        &bt BT_SEL 4  &bt BT_SEL 3       &bt BT_CLR    /*& &*/     &trans              &trans           &trans         &trans        &trans
+        &out OUT_USB &bt BT_SEL 2  &bt BT_SEL 1  &bt BT_SEL 0       &out OUT_BLE  /*& &*/     &trans              &lon  L_GAME0    &trans         &trans        &trans
+        &trans       &trans        &trans        &trans             &trans        /*& &*/     &trans              &loff L_GAME0    &trans         &trans        &trans
                                        &trans        &trans             &trans    /*& &*/ &trans         &trans           &trans
 			>;
 		};
