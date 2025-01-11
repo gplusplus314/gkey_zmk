@@ -215,8 +215,8 @@
       loff: layer_off {
         compatible = "zmk,behavior-toggle-layer";
         #binding-cells = <1>;
-        display-name = "Layer On";
-        toggle-mode = "on";
+        display-name = "Layer Off";
+        toggle-mode = "off";
       };
 
       lon: layer_on {
