@@ -45,22 +45,16 @@
 #define G_R     &lhrm LALT       R
 #define G_S     &lhrm LGUI       S
 #define G_T     &lhrm LCTRL      T
-#define G_D     &lhrm K_DUPER    D
-//#define G_S     &lhrm K_DUPER    S
-//#define G_T     &lhrm LCTRL      T
-//#define G_D     &lhrm LGUI       D
+#define G_D     &kp              D
 // navsym layer
 #define G_DOT   &lsft LSHFT        DOT
 //}}}
 
 // Right home row mods {{{
 // base layer
-#define G_H     &rhrm K_DUPER      H
+#define G_H     &kp                H
 #define G_N     &rhrm RCTRL        N
 #define G_E     &rhrm RGUI         E
-//#define G_H     &rhrm RGUI         H
-//#define G_N     &rhrm RCTRL        N
-//#define G_E     &rhrm K_DUPER      E
 #define G_I     &rhrm RALT         I
 #define G_O     &rsft RSHFT        O
 // navsym layer
@@ -68,14 +62,13 @@
 //}}}
 
 // Left thumb {{{
-#define G_SPC  &sm     K_DUPER       SPC
+#define G_SPC  &kp     SPC
 #define G_ESC  &tlt    L_NAVSYM      ESC
 //}}}
 
 // Right thumb {{{
 #define G_RET   &tm  LSHFT    RET
 #define G_BSPC  &tlt L_NAVSYM BSPC
-#define G_WM  &tlt L_NAVSYM BSPC
 //}}}
 
 // Dual thumb combo
@@ -147,7 +140,7 @@
         flavor = "balanced";
         tapping-term-ms = <280>;
         quick-tap-ms = <150>;
-        require-prior-idle-ms = <175>;
+        //require-prior-idle-ms = <175>;
         bindings = <&kp>, <&kp>;
         hold-trigger-key-positions = <KEYS_RFINGERS KEYS_RTHUMBS>;
         hold-trigger-on-release;
@@ -159,7 +152,7 @@
         flavor = "balanced";
         tapping-term-ms = <280>;
         quick-tap-ms = <150>;
-        require-prior-idle-ms = <175>;
+        //require-prior-idle-ms = <175>;
         bindings = <&kp>, <&kp>;
         hold-trigger-key-positions = <KEYS_LFINGERS KEYS_LTHUMBS>;
         hold-trigger-on-release;
