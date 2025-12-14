@@ -2,6 +2,7 @@
 
 ZMK_SHIELD="${1:-gkey_vibraphone}"
 ZMK_SPLIT_SIDE="${2:-left}"
+ZMK_RESET="$3"
 
 case "$ZMK_SHIELD" in
 "gkey_vibraphone")
@@ -21,11 +22,33 @@ if [ ! -d "$ZEPHYR_BASE/../app" ]; then
 	exit 1
 fi
 
-os=$(uname)
-if [[ "$os" == "Darwin" ]]; then
+case $(uname -s) in
+Darwin)
 	MOUNT_POINT="/Volumes/$MOUNT_NAME"
-else
+	;;
+Linux)
+	MOUNT_POINT="/run/media/$USER/$MOUNT_NAME"
+	;;
+*)
 	echo "Unsupported OS: $os"
+	exit 1
+	;;
+esac
+
+echo ""
+echo "#################################################"
+echo "# ATTENTION: You are about to flash:"
+echo "#     $ZMK_SHIELD - $ZMK_SPLIT_SIDE"
+if [ "$ZMK_RESET" == "y" ]; then
+	echo "#         **SETTINGS RESET**"
+fi
+echo "#################################################"
+echo ""
+read -r -p "Are you sure? (y/N): " response
+if [[ "$response" =~ ^[Yy]$ ]]; then
+	echo "Flashing..."
+else
+	echo "CANCELED!"
 	exit 1
 fi
 
@@ -49,3 +72,4 @@ until [ ! -d "$MOUNT_POINT" ]; do
 done
 
 echo "Done flashing!"
+

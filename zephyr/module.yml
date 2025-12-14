@@ -1,3 +1,4 @@
+name: zmk-keyboard-gkey_vibraphone
 build:
   settings:
     board_root: .

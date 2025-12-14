@@ -62,8 +62,8 @@
 //}}}
 
 // Left thumb {{{
-#define G_SPC  &kp     SPC
-#define G_ESC  &tlt    L_NAVSYM      ESC
+#define G_SPC  &slt    L_NAVSYM SPC
+#define G_ESC  &tm     LSHFT    ESC
 //}}}
 
 // Right thumb {{{
@@ -206,6 +206,15 @@
         bindings = <&mo>, <&kp>;
       };
 
+      slt: space_layer_tap {
+        compatible = "zmk,behavior-hold-tap";
+        #binding-cells = <2>;
+        flavor = "balanced";
+        tapping-term-ms = <175>;
+        quick-tap-ms = <175>;
+        bindings = <&mo>, <&kp>;
+      };
+
       st: shifted_tap {
         compatible = "zmk,behavior-macro-one-param";
         #binding-cells = <1>;
@@ -261,7 +270,7 @@
 
 		dualthumb_layer {
 			bindings = <
-			  &trans       &trans        &kp C_BRI_DN  &kp C_BRI_UP     &kp K_PP     /*& &*/    &trans             &kp F4            &kp F5            &kp F6        &kp F11
+		&trans       &trans        &kp C_BRI_DN  &kp C_BRI_UP     &kp K_PP     /*& &*/    &trans             &kp F4            &kp F5            &kp F6        &kp F11
         &trans       &trans        &kp K_VOL_DN  &kp K_VOL_UP     &kp K_MUTE   /*& &*/    &trans             &kp F1            &kp F2            &kp F3        &kp F10
         &trans       &trans        &trans        &trans           &trans       /*& &*/    &trans             &kp F7            &kp F8            &kp F9        &kp F12
                                        &trans        &trans          &trans    /*& &*/ &trans         &trans           &trans
@@ -304,7 +313,7 @@
 			>;
 		};
 
-    // This effectively acts as a template for new layers, but I leave it as part of the layout to make sure it can always compile.
+    	// This effectively acts as a template for new layers, but I leave it as part of the layout to make sure it can always compile.
 		trans_layer {
 			bindings = <
         &trans       &trans        &trans        &trans          &trans        /*& &*/     &trans              &trans           &trans         &trans        &trans
