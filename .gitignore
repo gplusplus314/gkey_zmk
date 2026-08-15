@@ -1,4 +1,2 @@
-.zmk/
-.venv/
 /build/
-/.vscode/
+/.direnv/
