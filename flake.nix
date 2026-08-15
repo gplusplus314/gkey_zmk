@@ -16,7 +16,7 @@
       ".json" ".keymap" ".overlay" ".shield" ".yml" "_defconfig"
     ];
 
-    zephyrDepsHash = "sha256-7IDDbW+FtQPDJdkpy3ty5GtK+9dcAuYO8WJ5SSd4sIc=";
+    zephyrDepsHash = "sha256-WxYxNWBxm9zv5LFtr/l0AzudvKl3VtRadz75vcQxTwg=";
   in {
     packages = forAllSystems (system: let
       pkgs = nixpkgs.legacyPackages.${system};
