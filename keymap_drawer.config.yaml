@@ -1,0 +1,28 @@
+parse_config:
+  raw_binding_map:
+    "&st LS(N9)": "("
+    "&st LS(N0)": ")"
+    "&lon L_GAME0": "game on"
+    "&loff L_GAME0": "game off"
+    "&lon L_GAME1": "game1 on"
+    "&loff L_GAME1": "game1 off"
+
+  mark_alternate_layer_activators: true
+
+  zmk_combos:
+    combo_dual_l: {o: 0.3, a: bottom}
+
+    combo_tab_v:  {s: 0.33}
+    combo_semi_v: {s: 0.33}
+    combo_alt_a_l: {s: 0.33}
+    combo_alt_o_r: {s: 0.33}
+
+    combo_tab_h: {hidden: true}
+    combo_semi_h: {hidden: true}
+    combo_minus_lh: {hidden: true}
+    combo_equal_rh: {hidden: true}
+
+draw_config:
+  split_gap: 15
+  n_columns: 1
+  append_colon_to_layer_header: false

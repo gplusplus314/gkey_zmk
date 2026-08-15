@@ -105,27 +105,39 @@
       };
       //}}}
 
-      // Both left thumb buttons
+      // Both left thumb buttons get to the G_DUAL layer:
       COMBO(dual_l, G_DUAL, 31 32, 35, TYPING_LAYERS)
 
-      // Use most comfortable combo for most frequent non-alpha chars:
-      COMBO(tab, &kp TAB, 12 13, 25, TYPING_LAYERS)
-      COMBO(semi, &kp SEMI, 16 17, 25, RIGHT_HAND_LAYERS)
+      // Most frequent non-alpha chars (tab and semicolon):
+      // (index and middle finger, home position, horizontal combo)
+      COMBO(tab_h, &kp TAB, 12 13, 25, TYPING_LAYERS)
+      COMBO(semi_h, &kp SEMI, 16 17, 25, RIGHT_HAND_LAYERS)
+      // New, currently trying: (index finger, down, vertical combo)
+      COMBO(tab_v, &kp TAB, 13 23, 25, TYPING_LAYERS)
+      COMBO(semi_v, &kp SEMI, 16 26, 25, RIGHT_HAND_LAYERS)
 
-      // Put - and = on easy, combos
-      COMBO(minus_l, &kp MINUS, 11 12, 25, TYPING_LAYERS)
-      COMBO(equal_r, &kp EQUAL, 17 18, 25, RIGHT_HAND_LAYERS)
+      // Put - and = on easy, combos:
+      // (ring and middle finger, home position, horizontal combo)
+      COMBO(minus_lh, &kp MINUS, 11 12, 25, TYPING_LAYERS)
+      COMBO(equal_rh, &kp EQUAL, 17 18, 25, RIGHT_HAND_LAYERS)
+      // New, currently trying: (ring finger, up vertical combo)
+      COMBO(minus_lv, &kp MINUS, 1 11, 25, TYPING_LAYERS)
+      COMBO(equal_rv, &kp EQUAL, 8 18, 25, RIGHT_HAND_LAYERS)
 
-      // Shortcut to brackets:
+      // Shortcut to brackets: 
+      // (middle finger, up, vertical combo)
       COMBO(lbkt, &kp LBKT   , 2 12, 25, TYPING_LAYERS)
+      COMBO(rbkt, &kp RBKT   , 7 17, 25, RIGHT_HAND_LAYERS)
+
+      // Shortcut to parens:
+      // (index finger, up, vertical combo)
       COMBO(lprn, &st LS(N9), 3 13, 25, TYPING_LAYERS)
       COMBO(rprn, &st LS(N0), 6 16, 25, RIGHT_HAND_LAYERS)
-      COMBO(rbkt, &kp RBKT   , 7 17, 25, RIGHT_HAND_LAYERS)
-      
-      // Alternate 'O' for ALL CAPS TYPING USING PINKY AS SHIFT
-      // (ring and middle finger down 1 position)
-      COMBO(alt_ol, &kp O, 21 22, 25, TYPING_LAYERS)
-      COMBO(alt_or, &kp O, 27 28, 25, TYPING_LAYERS)
+
+      // Alternate 'A' and 'O' for ALL CAPS TYPING USING PINKY AS SHIFT
+      // (middle finger, down, vertical combo)
+      COMBO(alt_a_l, &kp A, 12 22, 25, TYPING_LAYERS)
+      COMBO(alt_o_r, &kp O, 17 27, 25, RIGHT_HAND_LAYERS)
     };
     //}}}
 
@@ -239,6 +251,7 @@
 		compatible = "zmk,keymap";
 
 		base_layer {
+			display-name = "base";
 			bindings = <
         &kp Q         &kp W         &kp F         &kp P           &kp B        /*& &*/     &kp J               &kp L            &kp U              &kp Y         &kp SQT 
         G_A           G_R           G_S           G_T             &kp G        /*& &*/     &kp M               G_N              G_E                G_I           G_O  
@@ -248,6 +261,7 @@
 		};
 
 		navsym_layer {
+			display-name = "nav/sym";
 			bindings = <
         &kp DEL      &kp HOME      &kp UP       &kp END          &kp PG_UP     /*& &*/      &kp SEMI            &kp N4           &kp N5         &kp N6        &kp BSLH
         G_DOT        &kp LEFT      &kp DOWN     &kp RIGHT        &kp PG_DN     /*& &*/      &kp GRAVE           &kp N1           &kp N2         &kp N3        G_N0  
@@ -257,6 +271,7 @@
 		};
 
 		macro_layer {
+			display-name = "macro";
 			bindings = <
         &kp F23      &kp F18       &kp F17       &kp F16         &kp KP_PLUS   /*& &*/     &kp KP_MULTIPLY      &kp F4            &kp F5            &kp F6        &kp F11 
         &kp F22      &kp F15       &kp F14       &kp F13         &kp KP_MINUS  /*& &*/     &kp KP_DIVIDE        &kp F1            &kp F2            &kp F3        &kp F10 
@@ -266,6 +281,7 @@
 		};
 
 		dualthumb_layer {
+			display-name = "media-F";
 			bindings = <
 		&trans       &trans        &kp C_BRI_DN  &kp C_BRI_UP     &kp K_PP     /*& &*/    &trans             &kp F4            &kp F5            &kp F6        &kp F11
         &trans       &trans        &kp K_VOL_DN  &kp K_VOL_UP     &kp K_MUTE   /*& &*/    &trans             &kp F1            &kp F2            &kp F3        &kp F10
@@ -275,6 +291,7 @@
 		};
 
 		game0_layer {
+			display-name = "game-gate";
 			bindings = <
         &trans       &trans        &trans        &trans          &trans        /*& &*/     &trans              &trans           &trans         &trans        &trans
         &trans       &trans        &trans        &trans          &trans        /*& &*/     &trans              &trans           &trans         &trans        &trans
@@ -284,6 +301,7 @@
 		};
 
 		game1_layer {
+			display-name = "game1";
 			bindings = <
         &kp Q          &kp W         &kp F         &kp P           &kp B         /*& &*/     &trans              &trans           &trans         &trans        &trans 
         &kp A          &kp R         &kp S         &kp T           &kp G         /*& &*/     &trans              &trans           &trans         &trans        &trans 
@@ -293,6 +311,7 @@
 		};
 
 		game2_layer {
+			display-name = "game2";
 			bindings = <
         &kp ESC      &kp N6        &kp N5        &kp N4          &kp PG_UP     /*& &*/     &trans              &trans           &trans         &trans        &trans
         &kp N0       &kp N3        &kp N2        &kp N1          &kp PG_DN     /*& &*/     &trans              &trans           &trans         &trans        &trans
@@ -302,6 +321,7 @@
 		};
 
 		settings_layer {
+			display-name = "settings";
 			bindings = <
         &trans       &trans        &bt BT_SEL 4  &bt BT_SEL 3       &trans        /*& &*/     &trans              &trans           &trans         &trans        &trans
         &out OUT_USB &bt BT_SEL 2  &bt BT_SEL 1  &bt BT_SEL 0       &out OUT_BLE  /*& &*/     &trans              &lon  L_GAME0    &trans         &trans        &trans
@@ -312,6 +332,7 @@
 
     	// This effectively acts as a template for new layers, but I leave it as part of the layout to make sure it can always compile.
 		trans_layer {
+			display-name = "template";
 			bindings = <
         &trans       &trans        &trans        &trans          &trans        /*& &*/     &trans              &trans           &trans         &trans        &trans
         &trans       &trans        &trans        &trans          &trans        /*& &*/     &trans              &trans           &trans         &trans        &trans

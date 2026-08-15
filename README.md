@@ -14,7 +14,15 @@ nix run .#flash -- right   # right half
 nix run .#flash            # both halves, in sequence
 nix run .#flash-reset      # clear ZMK settings (prompts to confirm)
 nix run .#update           # bump the pinned ZMK / Zephyr / HAL versions
+nix run .#diagram          # redraw the keymap images below
 ```
 
 Flashing is Linux-only (zmk-nix uses udisks). On macOS, do a `nix build
 .#firmware` and copy the `.uf2` file to the bootloader by hand.
+
+## Keymap
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="img/keymap-dark.svg">
+  <img alt="gkey_vibraphone keymap" src="img/keymap.svg">
+</picture>
