@@ -27,8 +27,8 @@ Flashing is Linux-only (zmk-nix uses udisks). On macOS, do a `nix build
 It's called Vibraphone because:
 - I'm a percussionist. 🥁
 - A vibraphone is a *keyboard instrument*.
-- It has fewer keys than a xylophone.
-- It is flat, unlike a xylophone.
+- It has fewer keys than a marimba.
+- It is flat, unlike a marimba.
 
 The Vibraphone is my daily driver keyboard and also acts as my core, reference
 keymap. It runs on ZMK firmware and is a no-nonsense, serious keyboard,
