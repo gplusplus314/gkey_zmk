@@ -29,27 +29,27 @@ diodes and hard-soldered keys for maximum durability. It can be thrown caseless
 into a bag without any worry. The reset buttons and power toggle switches are
 guarded by the PCB to reduce accidental operation, too.
 
-One neat thing about this design is the non-uniform lateral spacing. This is to
-minimize vertical movement effort without cramping fingers too close to each
+One neat thing about this design is the **non-uniform lateral spacing**. This is
+to minimize vertical movement effort without cramping fingers too close to each
 other. Horizontally, keys are spaced apart to separate each finger, but the
-index finger cluster is tighly spaced to reduce lateral motion. Otherwise, the
-keys are as close to each other vertically as possible. The net effect is that I
-can type without moving my hands and arms; only my digits move while my palms
-are completely planted.
+index finger cluster is tightly spaced to reduce lateral motion. Otherwise, the
+keys are as close to each other vertically as possible with the injection-molded
+keycaps. The net effect is that I can type without moving my hands and arms;
+only my digits move while my palms are completely planted.
 
 The combination of PCB layout and keymap **completely eliminates tucking a
 thumb** under my palm while typing. That is a painful movement for me, so
 eliminating it was a design goal.
 
 The Vibraphone keymap is actually for 34 keys. The two extra thumb keys are
-intentionally out of the way and are only used for non-typing functions. There
-will eventually be a revision that eliminates these keys.
+intentionally out of the way and are only used for non-typing functions. I
+nickname them my "start and select" buttons. More on this later.
 
-The Vibraphone is actually based on another custom keyboard I no longer use:
-**The Marimba**. It's almost identical, except the Marimba was a bit larger, had
-more keys, and wasn't flat.
+The Vibraphone is based on another custom keyboard I no longer use: **The
+Marimba**. It's almost identical, except the Marimba was a bit larger, had more
+keys, and wasn't flat.
 
-#### Goals
+### Design Considerations
 - Purple: _the best color_
 - Minimal, low effort movement
 - Portable
@@ -60,15 +60,20 @@ more keys, and wasn't flat.
 - Optional support for wired interface over USB-C
 - No thumb tucking while typing
 
-#### Keymap
+### Keymap
 
-The premise behind this keymap is staying in the home position as much as
-possible in combination with everything else being within **1 DFH (Distance From
-Home)**, and all flow-state happens on two layers. I very rarely use any layers
-other than the `base` layer and the `nav/sym` layer. **Roughly 99% of all inputs
-happen on these two layers and about 85% of all inputs happen in the home
-position.** Note that the home position for a thumb is the middle button in the
-thumb arch right next to the key intentionally missing the key cap.
+The main themes behind this keymap are:
+- Staying in the home position as much as possible
+- Staying within 1 DFH (Distance From Home)
+- Staying within two layers as much as possible
+
+I very rarely use any layers other than the `base` layer and the `nav/sym`
+layer. **Roughly 99% of all inputs happen on these two layers and about 80% of
+all inputs happen in the home position.** Note that the home position for a
+thumb is the middle button in the thumb arch right next to the key that is
+intentionally missing the key cap. More on that later.
+
+#### The primary layer
 
 The `base` layer is essentially
 [Colemak-DHm](https://colemakmods.github.io/mod-dh/) for the alphabet, which is
@@ -79,14 +84,14 @@ and semicolons are accessible via easy to use combos that are either 0 DFH or
 0.5 DFH. **For an alphabet layer, Colemak-DHm places about 75% of typing inputs
 on the home row, whereas QWERTY is only 30%.**
 
+#### The secondary layer
+
 The `nav/sym` layer places 75% of the arrow cluster under the left hand's home
 position, making an "upside down T" shape with the arrows to mimic popular
 gaming controls ("WASD-like" arrows, only moved over to the right by one
-position and into the home position). This is often a topic of contention with
-Vim users who loudly object to using anything other than the `HJKL` keys. My
-answers those objections are:
-- `HJKL` only works in Vim, and even then, only in normal mode. My arrows work
-  _everywhere_ in _every_ mode.
+position into the home position). This is often a topic of contention with Vim
+users who loudly object to using anything other than the `HJKL` keys. My answers
+those objections are:
 - To get its advantages, `HJKL` locks you into QWERTY or a QWERTY-like alphabet
   layout, which is abysmally inefficient compared to almost any other modern
   layout (see previously mentioned statistics). 
@@ -94,8 +99,10 @@ answers those objections are:
   requires lateral finger movement (higher strain) from my second smallest
   finger, whereas my arrow cluster requires vertical movement (lower strain)
   from my longest finger.
+- `HJKL` only works in Vim, and even then, only in normal mode. My arrows work
+  _everywhere_ in _every_ mode.
 
-The numpad is also nonstandard, intentionally placing the `1`, `2`, `3`, `0`
+**The numpad is also nonstandard**, intentionally placing the `1`, `2`, `3`, `0`
 digits in the home position, in that order from left to right, on the right
 hand. These are the most frequently used digits and symbols. The `nav/sym` layer
 is enabled by holding either thumb's home position down, where the right-thumb
@@ -104,13 +111,7 @@ require rolling to resolve as a tap. The left thumb's home position is the space
 key, which must resolve as a tap during a roll, so it's the secondary and seldom
 used way to activate the `nav/sym` layer due to its latency tradeoff.
 
-All the other layers are very much out of the way and don't really get used
-during normal typing situations. You'll notice that the `macro` layer is
-accessed via the intentionally-out-of-the-way thumb keys, and to access the
-`settings` layer, both intentionally-out-of-the-way thumb keys must be held. I
-like to think of these keys as my "start" and "select" buttons, similar to some
-older gaming controllers, since they're useful but rarely used and you don't
-want to press them accidentally.
+#### Shift
 
 **You might notice that my shift keys are weird and I have weird combos for "A"
 and "O".** Shifting is quite a rabbit hole that is full of tradeoffs. My keymap
@@ -122,8 +123,22 @@ there is lots of tweaking for roll/tap resolution timing for my main shift keys,
 my pinkies in the home row. It also means that IF I WANT TO TYPE IN ALL CAPS, I
 have to alternate my pinkies every time I type an "A" or "O". I have two ways
 around that: alternative shift keys (thumbs 1 position away from home) and
-alternative "A" and "O" via a combo. Typing in all caps is very rare and this
-hardly ever gets in the way.
+alternative "A" and "O" via a combo.
+
+After saying all of that, typing in all caps is very rare and this hardly ever
+gets in the way.
+
+#### The "other" layers
+
+All the other layers are very much out of the way and don't really get used
+during normal typing situations. You'll notice that the `macro` layer is
+accessed via the **intentionally-out-of-the-way thumb keys**, and to access the
+`settings` layer, both intentionally-out-of-the-way thumb keys must be held. I
+like to think of these keys as my "start" and "select" buttons, similar to some
+older gaming controllers, since they're useful but rarely used and you don't
+want to press them accidentally.
+
+#### Gaming
 
 The gaming layers essentially just disable multi-function keys to eliminate
 latency. Gaming on this keyboard can be a challenge due to the limited number of
@@ -132,6 +147,8 @@ controls do tend to translate well to a minimal keyboard like my Vibraphone. I'm
 also not a competitive gamer and don't mind compromising here. Now that I'm
 older, I tend to prefer using a controller anyway because I can hand out on the
 couch with my wife and cat. This keyboard _can_ game, but gaming is a non-goal.
+
+#### TLDR
 
 Here's a generated diagram of the keymap, courtesy of [the keymap-drawer
 project](https://github.com/caksoylar/keymap-drawer):
@@ -148,7 +165,7 @@ so I don't care to make this user-friendly. But here are some notes for my
 future self before I forget how to use this repo again, which has already
 happened:
 
-You need [Nix](https://nixos.org/download/) with flakes enabled. Then:
+Install [gnix](https://github.com/gplusplus314/gnix). Then:
 
 ```sh
 git clone https://github.com/gplusplus314/gkey.git

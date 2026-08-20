@@ -17,10 +17,10 @@ parse_config:
     combo_alt_a_l: {s: 0.33}
     combo_alt_o_r: {s: 0.33}
 
-    combo_tab_h: {hidden: true}
-    combo_semi_h: {hidden: true}
-    combo_minus_lh: {hidden: true}
-    combo_equal_rh: {hidden: true}
+    combo_tab_v: {hidden: true}
+    combo_semi_v: {hidden: true}
+    combo_minus_lv: {hidden: true}
+    combo_equal_rv: {hidden: true}
 
 draw_config:
   split_gap: 15

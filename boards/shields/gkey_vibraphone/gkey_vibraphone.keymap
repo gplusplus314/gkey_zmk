@@ -136,8 +136,8 @@
 
       // Alternate 'A' and 'O' for ALL CAPS TYPING USING PINKY AS SHIFT
       // (middle finger, down, vertical combo)
-      COMBO(alt_a_l, &kp A, 12 22, 25, TYPING_LAYERS)
-      COMBO(alt_o_r, &kp O, 17 27, 25, RIGHT_HAND_LAYERS)
+      COMBO(alt_o_l, &kp O, 12 22, 25, TYPING_LAYERS)
+      COMBO(alt_a_r, &kp A, 17 27, 25, RIGHT_HAND_LAYERS)
     };
     //}}}
 
