@@ -1,7 +1,10 @@
-# Gerry's Keyboards
+# gkey - Gerry's Keyboards
 
 I enjoy, use, and rely on custom, ergonomic, programmable keyboards. Welcome to
 a glimpse of my madness.
+
+My keyboard flow pairs well with
+[gnix](https://github.com/gplusplus314/gnix).
 
 ## Vibraphone
 
